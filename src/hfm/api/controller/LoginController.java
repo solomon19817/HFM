@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope("session")
@@ -30,9 +31,9 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/validate_user")
-	public boolean validate_user(User user) {
-		System.out.println(user.getUsername());
+	@RequestMapping("/validate_user") 
+	public boolean validate_user(@RequestBody String json) {
+		System.out.println(json);
 		boolean result = this.loginService.validateUser();
 		return result;
 	}

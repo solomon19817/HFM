@@ -12,8 +12,31 @@
 	<!-- annotation默认的方法映射适配器 -->
 	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
-	<bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<!-- 默认是ISO-88859-1，避免乱码这里设置为UTF-8 -->
+							<value>
+								text/html;charset=UTF-8
+							</value>
+						</list>
+					</property>
+				</bean>
+				<!-- 启动JSON格式的配置 -->
+				<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<!-- 解决 HttpMediaTypeNotAcceptableException: Could not find acceptable representation -->
+					<property name="supportedMediaTypes">
+						<list>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- if you use annotation you must configure following setting -->
 	<mvc:annotation-driven />
 	<!-- 为了访问静态资源，将/开头的路径都映射到根目录 -->
