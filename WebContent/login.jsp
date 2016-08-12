@@ -7,18 +7,26 @@
 <title>Login</title>
 </head>
 <body>
-	<table>
+	<table id="tb_login">
 		<tr>
 			<td>User Name : </td>
 			<td><input type = "text" id="txt_user_name" value=""/></td>
 		</tr>
 		<tr>
 			<td>Password : </td>
-			<td><input type = "text" id="txt_password" value=""/></td>
+			<td><input type = "password" id="txt_password" value=""/></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td><input type = "button" id="btn_login" value="Login"/></td>
+		</tr>
+		<tr>
+			<td colspan="2"><span id="validation_result"></span></td>
+		</tr>
+	</table>
+	<table id="tb_users">
+		<tr>
+			<td><input type = "button" id="btn_list_all_users" value="List All Users"/></td>
 		</tr>
 	</table>
 </body>

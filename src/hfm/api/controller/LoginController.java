@@ -1,12 +1,16 @@
 package hfm.api.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import hfm.api.model.User;
 import hfm.api.service.*;
 
-import org.apache.catalina.User;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,9 +37,20 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/validate_user") 
 	public boolean validate_user(@RequestBody String json) {
-		System.out.println(json);
-		boolean result = this.loginService.validateUser();
+		JSONObject jsonObject = JSONObject.fromObject( json ); 
+		String username = jsonObject.getString("username");
+		String password = jsonObject.getString("password");
+		System.out.println(username);
+		System.out.println(password);
+		boolean result = this.loginService.validateUser(username, password);
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/list_all_users") 
+	public List<User> list_all_users() {
+		List<User> user_list = this.loginService.list_all_users();
+		return user_list;
 	}
 	
 	@RequestMapping("/memberlist")
